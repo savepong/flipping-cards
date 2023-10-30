@@ -26,119 +26,136 @@ import brand25 from "./assets/images/brand_25.jpeg";
 import brand26 from "./assets/images/brand_26.jpeg";
 import brand27 from "./assets/images/brand_27.jpg";
 import brand28 from "./assets/images/brand_28.jpeg";
+import { useState } from "react";
 
 const CARDS = [
   {
     image: brand1,
-    text: "Wall",
+    text: "หาร 2 (ทศนิยมปัดลง)",
   },
   {
     image: brand2,
-    text: "ทดสอบ",
+    text: "คูณ 2",
   },
   {
     image: brand3,
-    text: "",
+    text: "คูณ 2",
   },
   {
     image: brand4,
-    text: "",
+    text: "บวก 7",
   },
   {
     image: brand8,
-    text: "",
+    text: "บวก 7",
   },
   {
     image: brand9,
-    text: "",
+    text: "บวก 7",
   },
   {
     image: brand10,
-    text: "",
+    text: "ลบ 7",
   },
   {
     image: brand11,
-    text: "",
+    text: "ลบ 7",
   },
   {
     image: brand12,
-    text: "",
+    text: "ลบ 7",
   },
   {
     image: brand13,
-    text: "",
+    text: "บวก 5",
   },
   {
     image: brand14,
-    text: "",
+    text: "บวก 5",
   },
   {
     image: brand15,
-    text: "",
+    text: "บวก 5",
   },
   {
     image: brand16,
-    text: "",
+    text: "ลบ 5",
   },
   {
     image: brand17,
-    text: "",
+    text: "ลบ 5",
   },
   {
     image: brand18,
-    text: "",
+    text: "ลบ 5",
   },
   {
     image: brand19,
-    text: "",
+    text: "หากมีสมาชิกในทีมแต่งตัวตามตีมงาน รับคะแนน +10 หากไม่มี -10",
   },
   {
     image: brand20,
-    text: "",
+    text: "ตู้เต่าบินอยู่ชั้นไหน ตอบได้ +10 ตอบผิด -10",
   },
   {
     image: brand21,
-    text: "",
+    text: "จงบอกชื่อตึกที่เราทำงานอยู่ตอนนี้ ตอบได้ +10 ตอบผิด -10",
   },
   {
     image: brand22,
-    text: "",
+    text: "บวก 2 ให้กับสมาชิกในทีมที่มีสติ๊กเกอร์เข้างาน",
   },
   {
     image: brand23,
-    text: "",
+    text: "แบ่งคะแนนไปให้ทีมทางด้านขวามือ",
   },
   {
     image: brand24,
-    text: "",
+    text: "แบ่งคะแนนไปให้ทีมทางด้านซ้ายมือ",
   },
   {
     image: brand25,
-    text: "",
+    text: "สลับคะแนนกับทีมใดก็ได้",
   },
   {
     image: brand26,
-    text: "",
+    text: "สลับคะแนนกับทีมที่ได้คะแนนน้อยที่สุด",
   },
   {
     image: brand27,
-    text: "",
+    text: "แบ่งคะแนนจากทีมอื่นๆ ทีมละ 3 คะแนน มาให้ทีมตัวเอง",
   },
   {
     image: brand28,
-    text: "",
+    text: "หาร 2 (ทศนิยมปัดลง)",
   },
 ];
 
 function App() {
+  const [isFlipAll, setIsFlipAll] = useState(true);
+  const [cards, setCards] = useState(CARDS);
+
+  const shuffledCards = cards => {
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = cards[i];
+      cards[i] = cards[j];
+      cards[j] = temp;
+    }
+    
+    setCards([...cards]);
+  }
+
   return (
     <div className="page-container">
       <div className="grid grid-cols-5 gap-3 my-16 mx-auto w-[1600px]">
-        {CARDS.map((item, index) => (
-          <Card key={index} image={item.image}>
+        {cards.map((item, index) => (
+          <Card key={index} image={item.image} flip={isFlipAll}>
             {item.text}
           </Card>
         ))}
+        <button className="text-white fixed top-64 right-4" onClick={() => setIsFlipAll(!isFlipAll)}>Flip All</button>
+        <button className="text-white fixed top-72 right-4" onClick={() => shuffledCards(cards)}>Shuffle</button>
       </div>
     </div>
   );

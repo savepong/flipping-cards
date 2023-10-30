@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Card(props) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(props.flip);
 
   const image = props.image;
 
   const flip = () => {
     setIsFlipped(!isFlipped);
   };
+
+  useEffect(() => { flip() }, [props.flip]);
 
   return (
     <div
@@ -18,7 +20,7 @@ function Card(props) {
     >
       <Front image={image} />
       <Back onClick={flip}>
-        <div className="flex items-center justify-center h-full w-full text-4xl">
+        <div className="flex items-center justify-center h-full w-full text-4xl text-center">
           {props.children}
         </div>
       </Back>
